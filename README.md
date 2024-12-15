@@ -11,15 +11,13 @@ Bem-vindo ao projeto **Farmácia Cura Tudo**! Este é um sistema de gestão de p
 - 🗑️ **Deletar Produto**: Remova produtos do sistema.
 
 ## 🛠️ Tecnologias Utilizadas
-TypeScript: Linguagem principal do projeto.
-
-Node.js: Ambiente de execução do JavaScript no servidor.
-
-readline-sync: Biblioteca para interação com o usuário via terminal.
+- TypeScript: Linguagem principal do projeto.
+- Node.js: Ambiente de execução do JavaScript no servidor.
+- readline-sync: Biblioteca para interação com o usuário via terminal.
 
 ## 📂 Estrutura de Arquivos
 
-```plaintext
+<pre>
 .
 ├── src
 │   ├── Colors.ts
@@ -31,7 +29,6 @@ readline-sync: Biblioteca para interação com o usuário via terminal.
 │       └── ProdutoRepository.ts
 ├── main.ts
 └── README.md
+</pre>
 
-```plaintext
-
-Desenvolvido com ❤️ por Fern🌿 | 
+Desenvolvido com ❤️ por Fern🌿 | Linkedin: https://www.linkedin.com/in/fernanda-menezes-ribeiro/
