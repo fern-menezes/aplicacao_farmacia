@@ -33,7 +33,7 @@ export class Cosmetico extends Produto{
    
     public visualizar(): void{
         super.visualizar();
-        console.log(`Marca/Fabricante ${this._marca}`);
+        console.log(`Marca/Fabricante: ${this._marca}`);
         console.log(`Categoria de Uso: ${this._tipoUso}`);
         console.log(`Certificações: ${this._infoLabel}`);
 

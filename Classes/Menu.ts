@@ -5,24 +5,21 @@ import { Produto } from "./Produto";
 import { colors } from './src/Colors';
 import { Medicamento } from "./Medicamento";
 import { Cosmetico } from "./Cosmetico";
+import { ProdutoController } from "./model/ProdutoController";
 
 export function main(){
-    let opcao, id, valor, estoque: number;
-    let nome: string;
-    const categoria = ['Medicamentos', 'Cosmeticos'];
 
-   /**  const produto: Produto = new Produto(1, "Band-Aid", 2, 12.00, 10);
-    produto.visualizar()
+    let produtos: ProdutoController = new ProdutoController();
 
-    const produto2: Produto = new Produto(2, "Nimesulida", 1, 8.00, 6);
-    produto2.visualizar()
-    
-    const produto3: Produto = new Medicamento(3, "Dipirona", 1, 16.00, 6, "Gotas", "30ml", false);
-    produto3.visualizar()
+    let opcao, id, valor: number, categoria: number, estoque: number;
+    let nome, marca, tipoUso, infoLabel, formula, dosagem, receita: string;
+    const categoriaTipo = ['Medicamentos', 'Cosmeticos'];
 
-    const produto4: Produto = new Cosmetico(4, "Sabonete Líquido", 2, 15.00, 6, "Dove", "Higiêne Pessoal", "Não testado em Animais");
-    produto4.visualizar()
-*/
+    produtos.cadastrar(new Medicamento(produtos.gerarNumero(), "Damin", 12.00,1, 15, "Comprimidos", "50mg", "Não"));
+    produtos.cadastrar(new Medicamento(produtos.gerarNumero(), "Nimesulida", 8.00, 1, 15, "Comprimidos", "20mg", "Não"));
+    produtos.cadastrar(new Cosmetico(produtos.gerarNumero(), "Desodorante", 20.00,2, 150, "Dove", "Higiene Pessoal", "100% Reciclável"));
+    produtos.cadastrar(new Cosmetico(produtos.gerarNumero(), "Sabonete Líquido", 20.00, 2, 150, "Momange", "Higiene Pessoal", "Não testado em animais"));
+
 
     while(true){
              
@@ -52,10 +49,49 @@ export function main(){
     switch(opcao){
         case 1:
             console.log("➕ Criar Produto");
-            //Produto.visualizar("");
+            nome = readlinesync.question('Informe o produto: \n')
+
+            console.log("Informe o valor do produto: ");
+            valor = readlinesync.questionFloat('');
+
+            console.log("Escolha a categoria do produto ");
+            categoria = readlinesync.keyInSelect(categoriaTipo, "", {cancel: false}) + 1;
+
+
+            console.log("Informe a quantidade do estoque: ");
+            estoque = readlinesync.questionInt('');
+
+            switch(categoria){
+                case 1:
+                    console.log("Informe o formato de consumo: ");
+                    formula = readlinesync.question('');
+
+                    console.log("Informe a dosagem: ");
+                    dosagem = readlinesync.question('');
+
+                    console.log("Necessita Receita: ");
+                    receita = readlinesync.question('');
+
+                    produtos.cadastrar(new Medicamento(produtos.gerarNumero(), nome, valor, categoria, estoque, formula, dosagem, receita))
+                break;
+                case 2:
+                    console.log("Informe a Marca ou Fabricante: ");
+                    marca = readlinesync.question('');
+
+                    console.log("Informe a categoria de uso: ");
+                    tipoUso = readlinesync.question('');
+
+                    console.log("Informe as certificações: ");
+                    infoLabel = readlinesync.question('');
+
+                    produtos.cadastrar(new Cosmetico(produtos.gerarNumero(), nome, valor, categoria, estoque, marca, tipoUso, infoLabel))
+                    break;
+            }
+
             break;
         case 2:
             console.log("📝 Listar todos os produtos");
+            produtos.listarProdutos();
             break;
         case 3:
             console.log("📖 Consultar produto por ID");
@@ -78,4 +114,4 @@ main();
 export function sobre(){
     console.log("Desenvolvido por: Fern🌿 | github: fern-menezes");
     console.log("--------------------------------------------------");
-}
+};

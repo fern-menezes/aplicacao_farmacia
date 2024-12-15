@@ -4,12 +4,12 @@ export abstract class Produto{
     
     private _id: number;
     private _nome: string;
+	private _valor: number;
     private _categoria: number;
-    private _valor: number;
     private _estoque: number;
 
 
-	constructor(id: number, nome: string, categoria: number, valor: number, estoque: number) {
+	constructor(id: number, nome: string, valor: number, categoria: number, estoque: number) {
 		this._id = id;
 		this._nome = nome;
 		this._categoria = categoria;
@@ -57,8 +57,8 @@ export abstract class Produto{
         console.log("----------------------------------------------");
         console.log(`Código do Produto: ${this._id}`);
         console.log(`Produto: ${this._nome}`);
-        console.log(`Categoria: ${categoria}`);
         console.log(`Valor: ${this._valor.toFixed(2)}`);
+		console.log(`Categoria: ${categoria}`);
         console.log(`Estoque: ${this._estoque}`);
 	}
 
