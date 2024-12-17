@@ -37,13 +37,13 @@ Bem-vindo ao projeto **Farmácia Cura Tudo**! Este é um sistema de gestão de p
 1. **Clone o Repositório**:
 
    ```bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+   git clone https://github.com/fern-menezes/aplicacao_farmacia.git
    ```
 
 2. **Navegue até o Diretório do Projeto**:
 
    ```bash
-   cd nome-do-repositorio
+     cd aplicacao_farmacia
    ```
 
 3. **Instale as Dependências**:
