@@ -1,51 +1,41 @@
+//importação do módulo readline, pata interação do usuário via console
 import readlinesync = require("readline-sync");
-//import { Medicamento } from './Medicamento';
-//import { Cosmetico } from './Cosmetico';
 import { Produto } from "./Produto";
 import { colors } from './src/Colors';
 import { Medicamento } from "./Medicamento";
 import { Cosmetico } from "./Cosmetico";
 import { ProdutoController } from "./model/ProdutoController";
+import { ProdutoRepository } from "./model/ProdutoReposirory";
 
+
+//função principal que inicializa o sistema
 export function main(){
 
-    let produtos: ProdutoController = new ProdutoController();
+    // Criação do controlador de produtos e pré-cadastro de alguns produtos
+    let produtos: ProdutoController = new ProdutoController()
+    //função de de produtos pré cadastrados
+    preCadastrarProdutos(produtos);;
 
+    //váriaveis usadas no menu
     let opcao, id, valor: number, categoria: number, estoque: number;
-    let nome, marca, tipoUso, infoLabel, formula, dosagem, receita: string;
+    let nome, marca, tipoUso, infoLabel, formula, dosagem, numero, receita: string;
     const categoriaTipo = ['Medicamentos', 'Cosmeticos'];
 
-    produtos.cadastrar(new Medicamento(produtos.gerarNumero(), "Damin", 12.00,1, 15, "Comprimidos", "50mg", "Não"));
-    produtos.cadastrar(new Medicamento(produtos.gerarNumero(), "Nimesulida", 8.00, 1, 15, "Comprimidos", "20mg", "Não"));
-    produtos.cadastrar(new Cosmetico(produtos.gerarNumero(), "Desodorante", 20.00,2, 150, "Dove", "Higiene Pessoal", "100% Reciclável"));
-    produtos.cadastrar(new Cosmetico(produtos.gerarNumero(), "Sabonete Líquido", 20.00, 2, 150, "Momange", "Higiene Pessoal", "Não testado em animais"));
-
-
+    
     while(true){
-             
-        //console.log(colors);
-        console.log("\n------------------------------------------");
-        console.log("             FARMÁCIA CURA TUDO           ");
-        console.log("------------------------------------------");
-        console.log("                                          ");
-        console.log("       1 - CRIAR PRODUTO                  ");
-        console.log("       2 - LISTAR TODOS OS PRODUTOS       ");
-        console.log("       3 - CONSULTAR PRODUTO POR ID       ");
-        console.log("       4 - ATUALIZAR PRODUTO              ");
-        console.log("       5 - DELETAR PRODUTO                ");
-        console.log("       0 - SAIR                           ");
-        console.log("                                          ");
-        //console.log(colors.reset);
-   
+        // Exibição do menu e leitura da opção escolhida pelo usuário, função no fim do código
+        menu();
+        opcao = readlinesync.questionInt('Digite a opcao desejada: ');
 
-    opcao = readlinesync.questionInt('Digite a opcao desejada: ')
-
+    // condição para encerrar o sistema
     if(opcao === 0){
         console.log("\n------------------------------------------");
         console.log("Obrigado por usar o nosso sistema 💊");
         sobre();
         process.exit(0);
     }
+
+    // Tratamento das opções do menu usando switch-case
     switch(opcao){
         case 1:
             console.log("➕ Criar Produto");
@@ -95,12 +85,24 @@ export function main(){
             break;
         case 3:
             console.log("📖 Consultar produto por ID");
+
+            console.log("Digite o id do produto: ");
+                numero = readlinesync.questionInt('');
+                produtos.consultarId(numero);
+
             break;
         case 4:
             console.log("🔄 Atualizar Produto");
+
+                
+           
             break;
         case 5:
             console.log("🗑️ Deletar Produto");
+
+            console.log("Digite o produto: ");
+                id = readlinesync.questionInt('');
+                produtos.deletar(id);
             break;
         default:
             console.log("Opção Inválida! ❌");
@@ -111,7 +113,75 @@ export function main(){
 }
 main();
 
+// Função que exibe informações sobre o sistema
 export function sobre(){
     console.log("Desenvolvido por: Fern🌿 | github: fern-menezes");
     console.log("--------------------------------------------------");
 };
+
+// Função que exibe o menu
+export function menu(){
+
+    console.log(colors.bg.white, colors.fg.red);
+    console.log("\n------------------------------------------");
+    console.log("             FARMÁCIA CURA TUDO           ");
+    console.log("------------------------------------------");
+    console.log("                                          ");
+    console.log("       1 - CRIAR PRODUTO                  ");
+    console.log("       2 - LISTAR TODOS OS PRODUTOS       ");
+    console.log("       3 - CONSULTAR PRODUTO POR ID       ");
+    console.log("       4 - ATUALIZAR PRODUTO              ");
+    console.log("       5 - DELETAR PRODUTO                ");
+    console.log("       0 - SAIR                           ");
+    console.log("                                          ");
+    console.log(colors.reset);
+};
+
+// Função que exibe informações sobre os itens já cadastrados
+function preCadastrarProdutos(produtos: ProdutoRepository): void {
+    // Medicamentos
+    produtos.cadastrar(new Medicamento(
+        produtos.gerarNumero(),
+        "Paracetamol",
+        10.99,
+        1,
+        50,
+        "C8H9NO2",
+        "500mg",
+        "sim"
+    ));
+    
+    produtos.cadastrar(new Medicamento(
+        produtos.gerarNumero(),
+        "Ibuprofeno",
+        15.49,
+        1,
+        30,
+        "C13H18O2",
+        "600mg",
+        "não"
+    ));
+
+    // Cosméticos
+    produtos.cadastrar(new Cosmetico(
+        produtos.gerarNumero(),
+        "Creme Hidratante",
+        25.99,
+        2,
+        20,
+        "Nivea",
+        "Uso Externo",
+        "Hidratação por 24h"
+    ));
+    
+    produtos.cadastrar(new Cosmetico(
+        produtos.gerarNumero(),
+        "Shampoo Anticaspa",
+        19.99,
+        2,
+        35,
+        "Head & Shoulders",
+        "Uso Diário",
+        "Combate à Caspa"
+    ));
+}
